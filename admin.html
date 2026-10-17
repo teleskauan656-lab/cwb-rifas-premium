@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CWB Rifas Premium — Painel</title>
+<style>
+:root{color-scheme:dark;--gold:#d7ad55;--bg:#090909;--panel:#171717}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#fff;font-family:Arial,sans-serif;padding:20px}
+main{max-width:650px;margin:auto}
+h1{color:var(--gold)}
+section{background:var(--panel);padding:18px;border:1px solid #333;border-radius:14px;margin:16px 0}
+label{display:block;margin:14px 0 6px}
+input,textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #555;background:#090909;color:white;font-size:16px}
+button{background:var(--gold);color:#111;font-weight:bold;border:0;border-radius:8px;padding:13px;width:100%;margin-top:16px;font-size:16px}
+.note{color:#bbb;font-size:13px;line-height:1.5}
+</style>
+</head>
+<body>
+<main>
+<h1>CWB RIFAS PREMIUM</h1>
+<p>Painel de configuração — protótipo</p>
+<section>
+<h2>Dados da campanha</h2>
+<label>Nome do prêmio</label>
+<input id="premio" value="Prêmio de demonstração">
+<label>Valor anunciado (R$)</label>
+<input id="valor" type="number" min="0" value="10000">
+<label>Preço por cota (R$)</label>
+<input id="preco" type="number" min="0" step="0.01" value="0.59">
+<label>Quantidade de números</label>
+<input id="quantidade" type="number" min="1" value="100">
+<label>Descrição</label>
+<textarea id="descricao" rows="3">Campanha demonstrativa.</textarea>
+<button onclick="mostrarResumo()">Conferir configuração</button>
+<div id="resumo" aria-live="polite"></div>
+</section>
+<p class="note">Protótipo local: as configurações não são salvas no site público. Este arquivo não possui autenticação segura, banco de dados ou pagamentos. Não use para administrar vendas reais.</p>
+</main>
+<script>
+function mostrarResumo(){
+const premio=document.getElementById('premio').value;
+const valor=Number(document.getElementById('valor').value);
+const preco=Number(document.getElementById('preco').value);
+const quantidade=Number(document.getElementById('quantidade').value);
+const descricao=document.getElementById('descricao').value;
+if(!premio.trim()||valor<0||preco<0||quantidade<1||!Number.isInteger(quantidade)){
+document.getElementById('resumo').textContent='Confira os campos e tente novamente.';
+return;
+}
+document.getElementById('resumo').innerHTML='';
+const p=document.createElement('p');
+p.textContent='Prêmio: '+premio+' | Valor: R$ '+valor.toLocaleString('pt-BR')+' | Cota: R$ '+preco.toLocaleString('pt-BR',{minimumFractionDigits:2})+' | Números: '+quantidade+' | '+descricao;
+document.getElementById('resumo').appendChild(p);
+}
+</script>
+</body>
+</html>
