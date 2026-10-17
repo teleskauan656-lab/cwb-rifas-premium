@@ -1,592 +1,181 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080808">
-  <title>CWB Rifas Premium</title>
-  <style>
-    :root {
-      --gold: #d6ad55;
-      --bg: #080808;
-      --panel: #151515;
-      --text: #f7f2e8;
-      --muted: #aaa;
-      --green: #174d35;
-      --red: #592323;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
-    }
-
-    header {
-      text-align: center;
-      padding: 28px 16px 20px;
-      border-bottom: 1px solid #393020;
-      background: linear-gradient(180deg, #211a0c, #080808);
-    }
-
-    .brand {
-      color: var(--gold);
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: 1px;
-    }
-
-    .tagline {
-      color: #d5c9ac;
-      margin-top: 7px;
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    main {
-      width: min(100% - 24px, 900px);
-      margin: 22px auto 40px;
-    }
-
-    .hero, .section {
-      background: var(--panel);
-      border: 1px solid #393020;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-
-    .eyebrow {
-      color: var(--gold);
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-
-    h1 {
-      font-size: clamp(27px, 7vw, 44px);
-      margin: 10px 0;
-    }
-
-    .prize {
-      color: var(--gold);
-      font-size: clamp(34px, 9vw, 54px);
-      font-weight: 900;
-      margin: 10px 0;
-    }
-
-    .muted { color: var(--muted); }
-
-    .status {
-      font-size: 13px;
-      padding: 10px 12px;
-      background: #202020;
-      border-radius: 8px;
-      margin-top: 14px;
-      overflow-wrap: anywhere;
-    }
-
-    .gold { color: var(--gold); }
-
-    .controls {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin: 14px 0;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 13px;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-
-    input {
-      background: #090909;
-      color: white;
-      border: 1px solid #51452e;
-    }
-
-    button {
-      cursor: pointer;
-      border: 1px solid var(--gold);
-      background: var(--gold);
-      color: #17120a;
-      font-weight: bold;
-    }
-
-    button:disabled {
-      opacity: .45;
-      cursor: not-allowed;
-    }
-
-    .pages {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin: 14px 0;
-    }
-
-    .pages button {
-      width: auto;
-      min-width: 95px;
-      padding: 10px;
-    }
-
-    #pageLabel {
-      text-align: center;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 12px;
-      margin: 12px 0;
-      color: #ddd;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      margin-right: 4px;
-    }
-
-    .available-dot { background: var(--green); }
-    .unavailable-dot { background: var(--red); }
-    .selected-dot { background: var(--gold); }
-
-    #numbers {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 7px;
-    }
-
-    .number {
-      min-width: 0;
-      padding: 11px 2px;
-      font-size: 12px;
-      color: #eee;
-      background: var(--green);
-      border: 1px solid #28714e;
-      border-radius: 6px;
-    }
-
-    .number.selected {
-      background: var(--gold);
-      color: #17120a;
-      border-color: #f8d987;
-    }
-
-    .number.unavailable {
-      background: var(--red);
-      border-color: #813d3d;
-      color: #ddd;
-      text-decoration: line-through;
-      cursor: not-allowed;
-    }
-
-    .number:disabled {
-      opacity: .75;
-    }
-
-    .summary {
-      position: sticky;
-      bottom: 8px;
-      background: #201a0e;
-      border: 1px solid var(--gold);
-      padding: 15px;
-      border-radius: 12px;
-      margin-top: 18px;
-      box-shadow: 0 4px 20px #0009;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    #selectedList {
-      overflow-wrap: anywhere;
-      font-size: 12px;
-      color: #d9cba9;
-      margin: 8px 0;
-    }
-
-    footer {
-      text-align: center;
-      color: #777;
-      font-size: 12px;
-      padding: 22px;
-    }
-
-    @media (min-width: 520px) {
-      #numbers { grid-template-columns: repeat(10, minmax(0, 1fr)); }
-      .controls { grid-template-columns: 1fr auto; }
-      .controls button { width: auto; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>CWB Rifas Premium</title>
+<style>
+:root{--gold:#d7ad55;--bg:#090909;--panel:#171717;--line:#352a19}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#fff;font-family:Arial,sans-serif}
+header{padding:22px 16px;border-bottom:1px solid var(--line);text-align:center;font-size:20px;font-weight:900;letter-spacing:1px}
+header span,h1 span{color:var(--gold)}
+main{max-width:600px;margin:auto;padding:18px 14px}
+.hero,.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:16px}
+.hero{background:radial-gradient(ellipse at top right,#46341b,#171717 70%)}
+.tag{color:var(--gold);font-size:11px;letter-spacing:2px;font-weight:bold}
+h1{font-size:34px;line-height:1.1;margin:12px 0}
+p{color:#ccc;line-height:1.5;font-size:14px}
+.price{font-size:34px;font-weight:900;color:var(--gold)}
+label{display:block;margin:15px 0 7px;font-size:13px;color:#ddd}
+input{width:100%;padding:14px;background:#0b0b0b;border:1px solid #493a24;border-radius:9px;color:white;font-size:16px}
+button{width:100%;padding:15px;border:0;border-radius:9px;background:linear-gradient(135deg,#f0d58b,#b7852e);color:#171108;font-size:15px;font-weight:900;margin-top:17px}
+button:disabled{opacity:.5}
+.result{display:none;margin-top:18px;padding:14px;border:1px solid var(--gold);border-radius:10px;overflow-wrap:anywhere}
+#numbers{color:var(--gold);line-height:1.8}
+.small{font-size:11px;color:#999}
+footer{text-align:center;color:#888;font-size:11px;padding:20px;line-height:1.7}
+</style>
 </head>
 <body>
-  <header>
-    <div class="brand">CWB RIFAS</div>
-    <div class="tagline">PREMIUM • SUA SORTE, SEU MOMENTO</div>
-  </header>
+<header>CWB <span>RIFAS</span> PREMIUM</header>
 
-  <main>
-    <section class="hero">
-      <div class="eyebrow">CAMPANHA EM DESTAQUE</div>
-      <h1 id="campaignName">CWB Rifas Premium</h1>
-      <div class="muted">Prêmio anunciado</div>
-      <div class="prize" id="prize">R$ 10.000</div>
-      <div class="muted">
-        Escolha números disponíveis para visualizar sua seleção.
-      </div>
-      <div class="status" id="connectionStatus">
-        Conectando ao banco de dados...
-      </div>
-    </section>
+<main>
+<section class="hero">
+<div class="tag">EXPERIÊNCIA PREMIUM</div>
+<h1>SEU PRÓXIMO<br><span>GRANDE MOMENTO.</span></h1>
+<p>Preencha seus dados e informe quantas cotas deseja solicitar. Os números são atribuídos aleatoriamente pelo sistema.</p>
+<div class="price">R$ 0,59 <span style="font-size:14px">/ cota</span></div>
+<p class="small">Valor demonstrativo. Nenhum pagamento Pix está habilitado nesta versão.</p>
+</section>
 
-    <section class="section">
-      <h2>Escolha suas cotas</h2>
-      <div class="muted">
-        A disponibilidade exibida depende dos dados retornados pelo banco.
-      </div>
+<section class="panel">
+<h2>Solicitar cotas</h2>
+<form id="buyForm">
+<label for="name">Nome completo</label>
+<input id="name" maxlength="100" required placeholder="Digite seu nome">
 
-      <div class="controls">
-        <input
-          id="search"
-          type="number"
-          min="0"
-          max="39999"
-          placeholder="Buscar número de 00000 a 39999"
-          aria-label="Buscar número"
-        >
-        <button id="searchButton" type="button">Buscar</button>
-      </div>
+<label for="phone">Telefone com DDD</label>
+<input id="phone" type="tel" maxlength="20" required placeholder="Ex.: 41999999999">
 
-      <div class="legend">
-        <span><i class="dot available-dot"></i>Disponível</span>
-        <span><i class="dot selected-dot"></i>Selecionado</span>
-        <span><i class="dot unavailable-dot"></i>Indisponível</span>
-      </div>
+<label for="quantity">Quantidade de cotas (10 a 500)</label>
+<input id="quantity" type="number" min="10" max="500" step="1" value="10" required>
 
-      <div class="pages">
-        <button id="prev" type="button" disabled>← Anterior</button>
-        <div id="pageLabel">Carregando...</div>
-        <button id="next" type="button" disabled>Próxima →</button>
-      </div>
+<p id="total">Total: R$ 5,90</p>
+<button id="submitBtn" type="submit">SOLICITAR COTAS</button>
+</form>
 
-      <div id="numbers"></div>
+<div id="result" class="result" role="status">
+<h3 id="resultTitle">Resultado</h3>
+<p id="message"></p>
+<p id="numbers"></p>
+<p id="expiry"></p>
+</div>
+</section>
 
-      <div class="pages">
-        <button id="prevBottom" type="button" disabled>← Anterior</button>
-        <div id="pageLabelBottom"></div>
-        <button id="nextBottom" type="button" disabled>Próxima →</button>
-      </div>
+<section class="panel">
+<h3>Como funciona</h3>
+<p>O sistema tenta reservar cotas disponíveis por até 10 minutos. A solicitação não comprova pagamento nem garante participação no sorteio.</p>
+<p class="small">Antes de abrir vendas reais, é necessário testar o sistema, habilitar pagamentos seguros e verificar as exigências legais aplicáveis aos sorteios no Brasil.</p>
+</section>
+</main>
 
-      <div class="status" id="dataStatus">Aguardando dados...</div>
-    </section>
+<footer>© CWB Rifas Premium<br>Versão em testes · Não realize pagamentos por esta página.</footer>
 
-    <section class="summary">
-      <div class="summary-row">
-        <strong>Cotas selecionadas</strong>
-        <strong id="selectedCount">0</strong>
-      </div>
-      <div class="summary-row">
-        <strong>Total estimado</strong>
-        <strong class="gold" id="selectedTotal">R$ 0,00</strong>
-      </div>
-      <div id="selectedList">Nenhuma cota selecionada.</div>
-      <button id="clearSelection" type="button">Limpar seleção</button>
-      <p class="muted" style="font-size:12px;margin-bottom:0">
-        A seleção é temporária e não reserva números nem confirma pagamento.
-      </p>
-    </section>
-  </main>
+<script src="./supabase-config.js"></script>
+<script>
+const form = document.getElementById("buyForm");
+const quantityInput = document.getElementById("quantity");
+const total = document.getElementById("total");
+const btn = document.getElementById("submitBtn");
+const result = document.getElementById("result");
 
-  <footer>
-    CWB Rifas Premium • Demonstração de consulta de disponibilidade.
-    Confirme a regularidade legal da campanha antes de realizar vendas.
-  </footer>
+function money(value) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+}
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./supabase-config.js"></script>
+quantityInput.addEventListener("input", () => {
+  const q = Number(quantityInput.value);
+  total.textContent = "Total: " + money(
+    Number.isInteger(q) && q >= 0 ? q * 0.59 : 0
+  );
+});
 
-  <script>
-    (async function () {
-      "use strict";
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-      const CAMPAIGN_ID = "11111111-1111-4111-8111-111111111111";
-      const TOTAL_NUMBERS = 40000;
-      const PAGE_SIZE = 100;
-      const TICKET_PRICE = 0.59;
+  result.style.display = "block";
+  document.getElementById("resultTitle").textContent = "Processando...";
+  document.getElementById("message").textContent =
+    "Aguarde enquanto verificamos as cotas disponíveis.";
+  document.getElementById("numbers").textContent = "";
+  document.getElementById("expiry").textContent = "";
+  btn.disabled = true;
 
-      const $ = (id) => document.getElementById(id);
+  try {
+    const url = window.SUPABASE_URL;
+    const key = window.SUPABASE_ANON_KEY;
+    const quantity = Number(quantityInput.value);
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
 
-      const statusEl = $("connectionStatus");
-      const dataStatus = $("dataStatus");
-      const numbersEl = $("numbers");
-      const searchInput = $("search");
+    if (!url || !key) {
+      throw new Error(
+        "Configuração do Supabase não encontrada. Verifique o arquivo supabase-config.js."
+      );
+    }
 
-      let client = null;
-      let currentPage = 0;
-      let ticketMap = new Map();
-      let selected = new Set();
-      let loading = false;
+    if (!Number.isInteger(quantity) || quantity < 10 || quantity > 500) {
+      throw new Error("Escolha entre 10 e 500 cotas.");
+    }
 
-      const money = (value) =>
-        value.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL"
-        });
-
-      const formatNumber = (n) => String(n).padStart(5, "0");
-
-      function setStatus(message) {
-        statusEl.textContent = message;
+    const response = await fetch(
+      url.replace(/\/+$/, "") + "/functions/v1/comprar-cotas",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": key,
+          "Authorization": "Bearer " + key
+        },
+        body: JSON.stringify({
+          quantity: quantity,
+          customer_name: name,
+          customer_phone: phone
+        })
       }
+    );
 
-      function setDataStatus(message) {
-        dataStatus.textContent = message;
-      }
+    const data = await response.json();
 
-      function getConfig() {
-        const url = window.SUPABASE_URL;
-        const key = window.SUPABASE_ANON_KEY;
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || "Não foi possível solicitar as cotas.");
+    }
 
-        if (!url || !key || !window.supabase) {
-          throw new Error(
-            "Configuração ausente. Confira supabase-config.js."
-          );
-        }
+    const reservation = data.reservation || {};
+    document.getElementById("resultTitle").textContent =
+      "Solicitação criada";
+    document.getElementById("message").textContent =
+      "Cotas atribuídas: " + (reservation.quantity ?? quantity) +
+      ". Total: " + money(Number(reservation.total_brl ?? quantity * 0.59)) +
+      ". Esta solicitação ainda não é uma compra paga.";
 
-        return window.supabase.createClient(url, key);
-      }
+    const nums = Array.isArray(reservation.ticket_numbers)
+      ? reservation.ticket_numbers
+      : [];
 
-      async function fetchPage(page) {
-        const from = page * PAGE_SIZE;
-        const to = Math.min(from + PAGE_SIZE - 1, TOTAL_NUMBERS - 1);
+    document.getElementById("numbers").textContent =
+      nums.length ? "Números: " + nums.map(n =>
+        String(n).padStart(4, "0")
+      ).join(", ") : "";
 
-        const { data, error } = await client
-          .from("tickets")
-          .select("number,status,campaign_id")
-          .eq("campaign_id", CAMPAIGN_ID)
-          .order("number", { ascending: true })
-          .range(from, to);
+    document.getElementById("expiry").textContent =
+      reservation.expires_at
+        ? "Expira em: " + new Date(reservation.expires_at).toLocaleString("pt-BR")
+        : "";
 
-        if (error) throw error;
-        return data || [];
-      }
-
-      async function loadPage(page) {
-        if (loading) return;
-        loading = true;
-        currentPage = Math.max(
-          0,
-          Math.min(page, Math.ceil(TOTAL_NUMBERS / PAGE_SIZE) - 1)
-        );
-
-        numbersEl.innerHTML = "";
-        setDataStatus("Consultando cotas no Supabase...");
-        $("prev").disabled = true;
-        $("next").disabled = true;
-        $("prevBottom").disabled = true;
-        $("nextBottom").disabled = true;
-
-        try {
-          const rows = await fetchPage(currentPage);
-
-          ticketMap = new Map(rows.map((row) => [Number(row.number), row]));
-
-          renderNumbers();
-          updateSummary();
-
-          const start = currentPage * PAGE_SIZE;
-          const end = Math.min(start + PAGE_SIZE - 1, TOTAL_NUMBERS - 1);
-
-          $("pageLabel").textContent =
-            formatNumber(start) + "–" + formatNumber(end);
-          $("pageLabelBottom").textContent =
-            "Página " + (currentPage + 1) + " de 400";
-
-          $("prev").disabled = currentPage === 0;
-          $("prevBottom").disabled = currentPage === 0;
-          $("next").disabled = currentPage >= 399;
-          $("nextBottom").disabled = currentPage >= 399;
-
-          setStatus("Conectado ao Supabase.");
-          setDataStatus(
-            rows.length
-              ? rows.length + " cotas consultadas nesta página."
-              : "Nenhuma cota retornada nesta página. Confira a configuração de acesso."
-          );
-        } catch (error) {
-          console.error("Erro consultando cotas:", error);
-          setStatus("Não foi possível consultar o banco.");
-          setDataStatus(
-            "Erro: " + (error.message || "falha na consulta") +
-            ". Confira a chave pública, URL e políticas RLS do Supabase."
-          );
-          numbersEl.innerHTML =
-            '<p class="muted">Os números não foram carregados do banco. Não estamos exibindo dados fictícios.</p>';
-        } finally {
-          loading = false;
-        }
-      }
-
-      function renderNumbers() {
-        numbersEl.innerHTML = "";
-
-        const start = currentPage * PAGE_SIZE;
-        const end = Math.min(start + PAGE_SIZE, TOTAL_NUMBERS);
-
-        for (let number = start; number < end; number++) {
-          const row = ticketMap.get(number);
-          const button = document.createElement("button");
-
-          button.type = "button";
-          button.className = "number";
-          button.textContent = formatNumber(number);
-
-          if (!row) {
-            button.disabled = true;
-            button.classList.add("unavailable");
-            button.title = "Cota não encontrada no banco";
-          } else {
-            const state = String(row.status || "").toLowerCase();
-            const available = state === "available";
-
-            if (!available) {
-              button.disabled = true;
-              button.classList.add("unavailable");
-              button.title = "Status: " + row.status;
-            } else {
-              button.title = "Disponível";
-              if (selected.has(number)) {
-                button.classList.add("selected");
-              }
-
-              button.addEventListener("click", () => {
-                if (selected.has(number)) {
-                  selected.delete(number);
-                } else {
-                  selected.add(number);
-                }
-                renderNumbers();
-                updateSummary();
-              });
-            }
-          }
-
-          numbersEl.appendChild(button);
-        }
-      }
-
-      function updateSummary() {
-        $("selectedCount").textContent = selected.size;
-        $("selectedTotal").textContent = money(
-          selected.size * TICKET_PRICE
-        );
-
-        const list = Array.from(selected).sort((a, b) => a - b);
-
-        $("selectedList").textContent = list.length
-          ? "Números: " + list.map(formatNumber).join(", ")
-          : "Nenhuma cota selecionada.";
-      }
-
-      async function searchNumber() {
-        const raw = searchInput.value.trim();
-
-        if (raw === "") {
-          setDataStatus("Digite um número entre 00000 e 39999.");
-          return;
-        }
-
-        const number = Number(raw);
-
-        if (!Number.isInteger(number) || number < 0 || number >= TOTAL_NUMBERS) {
-          setDataStatus("Digite um número válido entre 00000 e 39999.");
-          return;
-        }
-
-        const page = Math.floor(number / PAGE_SIZE);
-        await loadPage(page);
-
-        if (ticketMap.has(number)) {
-          const button = Array.from(numbersEl.querySelectorAll("button"))
-            .find((item) => item.textContent === formatNumber(number));
-
-          if (button) {
-            button.scrollIntoView({ behavior: "smooth", block: "center" });
-            button.focus();
-          }
-        } else {
-          setDataStatus(
-            "O número " + formatNumber(number) +
-            " não foi retornado pelo banco nesta consulta."
-          );
-        }
-      }
-
-      $("prev").addEventListener("click", () => loadPage(currentPage - 1));
-      $("prevBottom").addEventListener("click", () => loadPage(currentPage - 1));
-      $("next").addEventListener("click", () => loadPage(currentPage + 1));
-      $("nextBottom").addEventListener("click", () => loadPage(currentPage + 1));
-      $("searchButton").addEventListener("click", searchNumber);
-
-      searchInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") searchNumber();
-      });
-
-      $("clearSelection").addEventListener("click", () => {
-        selected.clear();
-        renderNumbers();
-        updateSummary();
-      });
-
-      try {
-        client = getConfig();
-
-        const { data: campaign, error } = await client
-          .from("campaigns")
-          .select("*")
-          .eq("id", CAMPAIGN_ID)
-          .maybeSingle();
-
-        if (error) throw error;
-
-        if (campaign) {
-          $("campaignName").textContent =
-            campaign.name || "CWB Rifas Premium";
-
-          if (campaign.prize) {
-            $("prize").textContent = campaign.prize;
-          }
-        }
-
-        await loadPage(0);
-      } catch (error) {
-        console.error("Falha inicial:", error);
-        setStatus("Falha na conexão com o Supabase.");
-        setDataStatus(
-          error.message || "Confira supabase-config.js e as permissões de leitura."
-        );
-      }
-    })();
-  </script>
+  } catch (error) {
+    document.getElementById("resultTitle").textContent = "Não foi possível concluir";
+    document.getElementById("message").textContent =
+      error.message || "Erro de conexão. Tente novamente.";
+  } finally {
+    btn.disabled = false;
+  }
+});
+</script>
 </body>
 </html>
