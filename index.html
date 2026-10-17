@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>CWB Rifas Premium</title>
+<style>
+:root{--gold:#d7ad55;--bg:#090909;--panel:#151515;--muted:#aaa;--line:#30271a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f2e8;font-family:Arial,Helvetica,sans-serif}
+header{padding:20px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:900;letter-spacing:1px;font-size:19px}.brand span{color:var(--gold)}
+.pill{border:1px solid var(--gold);color:var(--gold);padding:7px 10px;border-radius:20px;font-size:11px;letter-spacing:.8px}
+main{max-width:900px;margin:auto;padding:18px 14px 40px}
+.hero{background:radial-gradient(ellipse at top right,#45331b 0%,#17130d 38%,#151515 72%);border:1px solid var(--line);border-radius:18px;padding:25px 20px;overflow:hidden}
+.kicker{color:var(--gold);font-weight:bold;letter-spacing:2px;font-size:11px}.hero h1{font-size:clamp(30px,7vw,48px);line-height:1.03;margin:12px 0}.hero h1 span{color:var(--gold)}.hero p{color:#d2cbc0;line-height:1.5;max-width:540px}
+.prize{font-size:36px;color:var(--gold);font-weight:900;margin:18px 0 4px}.notice{font-size:12px;color:#d6c8aa}
+.section{margin-top:22px;background:var(--panel);border:1px solid #28231b;border-radius:16px;padding:17px}
+h2{font-size:19px;margin:0 0 8px}.sub{font-size:13px;color:var(--muted);line-height:1.5}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.stat{background:#0c0c0c;border:1px solid #2b2419;border-radius:10px;padding:11px 8px}.stat b{display:block;color:var(--gold);font-size:18px}.stat small{color:#aaa;font-size:11px}
+.controls{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}.controls input{flex:1;min-width:120px;background:#0a0a0a;border:1px solid #393126;border-radius:9px;padding:11px;color:#fff;font-size:14px}
+button{border:0;border-radius:9px;padding:12px 14px;font-weight:bold;cursor:pointer}.gold{background:linear-gradient(135deg,#f0d58b,#b7852e);color:#171108}.secondary{background:#292929;color:#eee;border:1px solid #444}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.num{background:#222;color:#ddd;border:1px solid #3a3a3a;padding:11px 2px;font-size:12px;border-radius:8px}.num.selected{background:#d8b15e;color:#171108;border-color:#f6d98d}.num:disabled{opacity:.45}
+.summary{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid #30271a}.total{font-size:13px;color:#bbb}.total strong{display:block;color:var(--gold);font-size:22px;margin-top:4px}
+footer{text-align:center;color:#888;font-size:11px;line-height:1.6;padding:25px 12px}
+.modal{display:none;margin-top:12px;background:#201a10;border:1px solid var(--gold);padding:13px;border-radius:10px;font-size:13px;line-height:1.5}
+@media(min-width:600px){.grid{grid-template-columns:repeat(10,minmax(0,1fr))}.hero{padding:34px}.section{padding:22px}}
+</style>
+</head>
+<body>
+<header><div class="brand">CWB <span>RIFAS</span> PREMIUM</div><div class="pill">VERSÃO DEMONSTRAÇÃO</div></header>
+<main>
+<section class="hero">
+<div class="kicker">EXPERIÊNCIA PREMIUM</div>
+<h1>SEU PRÓXIMO<br><span>GRANDE MOMENTO.</span></h1>
+<p>Uma nova experiência CWB Rifas, com visual premium em preto e dourado e navegação simples pelo celular.</p>
+<div class="prize">R$ 10.000</div>
+<div class="notice">Prêmio ilustrativo para demonstração — não há venda ativa.</div>
+<div class="stats"><div class="stat"><b>01</b><small>Sorteio demonstrativo</small></div><div class="stat"><b>0000</b><small>Cotas vendidas</small></div><div class="stat"><b>R$ 0,00</b><small>Valor por cota (demo)</small></div></div>
+</section>
+<section class="section">
+<h2>Escolha seus números</h2><div class="sub">Selecione números para testar a interface. Esta demonstração não reserva cotas nem recebe pagamentos.</div>
+<div class="controls"><input id="search" inputmode="numeric" placeholder="Buscar número (ex.: 0027)" maxlength="4"><button class="secondary" id="clear">Limpar</button></div>
+<div class="grid" id="grid"></div>
+<div class="summary"><div class="total">Selecionados<strong id="count">0 números</strong></div><button class="gold" id="continue">Continuar</button></div>
+<div class="modal" id="msg" role="status"></div>
+</section>
+<section class="section"><h2>Como funciona</h2><p class="sub">A versão de produção precisará de backend seguro, banco de dados, autenticação administrativa, integração Pix homologada e validação jurídica antes de qualquer venda real.</p></section>
+</main>
+<footer>© CWB Rifas Premium · Protótipo visual<br>Não faça pagamentos por esta página. Nenhuma cota é reservada.</footer>
+<script>
+const grid=document.querySelector('#grid'), search=document.querySelector('#search'), count=document.querySelector('#count'), msg=document.querySelector('#msg');
+const selected=new Set(); const all=Array.from({length:100},(_,i)=>String(i).padStart(4,'0'));
+function render(){grid.innerHTML='';const q=search.value.trim();all.filter(n=>!q||n.includes(q)).forEach(n=>{const b=document.createElement('button');b.className='num'+(selected.has(n)?' selected':'');b.textContent=n;b.onclick=()=>{selected.has(n)?selected.delete(n):selected.add(n);render();};grid.appendChild(b)});count.textContent=selected.size+' '+(selected.size===1?'número':'números')}
+search.addEventListener('input',render);document.querySelector('#clear').onclick=()=>{selected.clear();search.value='';msg.style.display='none';render()};
+document.querySelector('#continue').onclick=()=>{msg.style.display='block';msg.textContent=selected.size?'Você selecionou '+selected.size+' número(s) para visualizar a interface. Nenhum pedido foi criado e nenhum pagamento pode ser feito nesta demonstração.':'Selecione pelo menos um número para testar a interface.'};
+render();
+</script>
+</body></html>

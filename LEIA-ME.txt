@@ -1,0 +1,20 @@
+CWB Rifas Premium — protótipo inicial
+=====================================
+
+Conteúdo:
+- index.html: protótipo visual responsivo, feito para abrir no celular.
+- A seleção de números é apenas demonstrativa. Não cria pedidos, não reserva cotas e não recebe pagamentos.
+
+Como testar no celular:
+1. Extraia o ZIP em um computador ou use um gerenciador de arquivos que abra ZIP.
+2. Abra index.html no navegador para ver a demonstração.
+3. Para publicar, envie index.html a uma hospedagem estática (por exemplo, GitHub Pages).
+
+Antes de qualquer uso real:
+- Implementar backend e banco de dados com transações atômicas para evitar cotas duplicadas.
+- Implementar login administrativo seguro e armazenamento de segredos no servidor.
+- Integrar um provedor Pix real; validar pagamentos por webhook assinado no servidor, nunca apenas pela tela do navegador.
+- Definir regras de privacidade, segurança e atendimento.
+- Verificar autorização e enquadramento jurídico aplicáveis ao formato da promoção/sorteio.
+
+Este protótipo não é um sistema de rifas pronto para vender e não deve ser usado para receber dinheiro.
