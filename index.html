@@ -1,115 +1,445 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090909">
 <title>CWB Rifas Premium</title>
+
 <style>
-:root{--gold:#d7ad55;--bg:#090909;--panel:#151515;--muted:#aaa;--line:#30271a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f2e8;font-family:Arial,Helvetica,sans-serif}
-header{padding:20px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-weight:900;letter-spacing:1px;font-size:19px}.brand span{color:var(--gold)}
-.pill{border:1px solid var(--gold);color:var(--gold);padding:7px 10px;border-radius:20px;font-size:11px;letter-spacing:.8px}
-main{max-width:900px;margin:auto;padding:18px 14px 40px}
-.hero{background:radial-gradient(ellipse at top right,#45331b 0%,#17130d 38%,#151515 72%);border:1px solid var(--line);border-radius:18px;padding:25px 20px;overflow:hidden}
-.kicker{color:var(--gold);font-weight:bold;letter-spacing:2px;font-size:11px}.hero h1{font-size:clamp(30px,7vw,48px);line-height:1.03;margin:12px 0}.hero h1 span{color:var(--gold)}.hero p{color:#d2cbc0;line-height:1.5;max-width:540px}
-.prize{font-size:36px;color:var(--gold);font-weight:900;margin:18px 0 4px}.notice{font-size:12px;color:#d6c8aa}
-.section{margin-top:22px;background:var(--panel);border:1px solid #28231b;border-radius:16px;padding:17px}
-h2{font-size:19px;margin:0 0 8px}.sub{font-size:13px;color:var(--muted);line-height:1.5}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.stat{background:#0c0c0c;border:1px solid #2b2419;border-radius:10px;padding:11px 8px}.stat b{display:block;color:var(--gold);font-size:18px}.stat small{color:#aaa;font-size:11px}
-.controls{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}.controls input{flex:1;min-width:120px;background:#0a0a0a;border:1px solid #393126;border-radius:9px;padding:11px;color:#fff;font-size:14px}
-button{border:0;border-radius:9px;padding:12px 14px;font-weight:bold;cursor:pointer}.gold{background:linear-gradient(135deg,#f0d58b,#b7852e);color:#171108}.secondary{background:#292929;color:#eee;border:1px solid #444}
-.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.num{background:#222;color:#ddd;border:1px solid #3a3a3a;padding:11px 2px;font-size:12px;border-radius:8px}.num.selected{background:#d8b15e;color:#171108;border-color:#f6d98d}.num:disabled{opacity:.45}
-.summary{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid #30271a}.total{font-size:13px;color:#bbb}.total strong{display:block;color:var(--gold);font-size:22px;margin-top:4px}
-footer{text-align:center;color:#888;font-size:11px;line-height:1.6;padding:25px 12px}
-.modal{display:none;margin-top:12px;background:#201a10;border:1px solid var(--gold);padding:13px;border-radius:10px;font-size:13px;line-height:1.5}
-@media(min-width:600px){.grid{grid-template-columns:repeat(10,minmax(0,1fr))}.hero{padding:34px}.section{padding:22px}}
+:root{--gold:#d7ad55;--bg:#090909;--panel:#151515;--line:#30271a;--muted:#aaa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f7f2e8;font-family:Arial,Helvetica,sans-serif}
+header{padding:18px 15px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-size:19px;font-weight:900;letter-spacing:1px}
+.brand span{color:var(--gold)}
+.badge{font-size:10px;border:1px solid var(--gold);color:var(--gold);padding:7px 10px;border-radius:20px}
+main{max-width:1000px;margin:auto;padding:16px 12px 40px}
+.hero{padding:25px 19px;border:1px solid var(--line);border-radius:18px;background:radial-gradient(ellipse at top right,#49361c,#17130d 45%,#151515 80%)}
+.kicker{font-size:11px;letter-spacing:2px;color:var(--gold);font-weight:bold}
+h1{font-size:clamp(30px,7vw,46px);line-height:1.05;margin:14px 0}
+h1 span,.gold-text{color:var(--gold)}
+p{line-height:1.5}
+.muted{color:var(--muted);font-size:13px;line-height:1.5}
+.prize{font-size:36px;font-weight:900;color:var(--gold);margin-top:18px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
+.stat{padding:12px 8px;background:#0b0b0b;border:1px solid var(--line);border-radius:10px}
+.stat b{display:block;font-size:18px;color:var(--gold);overflow-wrap:anywhere}
+.stat small{font-size:10px;color:#aaa}
+.section{margin-top:18px;padding:17px;background:var(--panel);border:1px solid #29241c;border-radius:15px}
+h2{font-size:19px;margin:0 0 10px}
+h3{font-size:15px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+input,select{min-width:0;background:#090909;color:white;border:1px solid #403729;border-radius:9px;padding:12px;font-size:14px}
+.controls input{flex:1;width:100%}
+button{padding:12px 14px;border:0;border-radius:9px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.45;cursor:not-allowed}
+.primary{background:linear-gradient(135deg,#f0d58b,#b7852e);color:#171108}
+.secondary{background:#292929;color:#fff;border:1px solid #444}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.num{padding:10px 1px;background:#222;color:#eee;border:1px solid #3a3a3a;font-size:11px;border-radius:7px;overflow:hidden}
+.num.selected{background:var(--gold);color:#171108;border-color:#f6d98d}
+.num.unavailable{background:#482424;color:#ddd}
+.pagination{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.summary{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:15px;padding-top:15px;border-top:1px solid var(--line)}
+.total strong{display:block;color:var(--gold);font-size:24px;margin-top:4px}
+.notice{display:none;margin-top:12px;padding:12px;border:1px solid var(--gold);border-radius:9px;background:#201a10;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+.status{padding:10px;border:1px solid #393126;border-radius:9px;overflow-wrap:anywhere}
+.admin-form{display:grid;gap:10px}
+.admin-form input,.admin-form select{width:100%}
+footer{text-align:center;padding:25px 12px;color:#888;font-size:11px;line-height:1.7}
+[hidden]{display:none!important}
+@media(min-width:600px){
+ .hero{padding:34px}
+ .section{padding:22px}
+ .grid{grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+ .num{font-size:11px}
+}
 </style>
 </head>
+
 <body>
-<header><div class="brand">CWB <span>RIFAS</span> PREMIUM</div><div class="pill">VERSÃO DEMONSTRAÇÃO</div></header>
+<header>
+  <div class="brand">CWB <span>RIFAS</span> PREMIUM</div>
+  <div class="badge">EDIÇÃO PREMIUM</div>
+</header>
+
 <main>
-<section class="hero">
-<div class="kicker">EXPERIÊNCIA PREMIUM</div>
-<h1>SEU PRÓXIMO<br><span>GRANDE MOMENTO.</span></h1>
-<p>Uma nova experiência CWB Rifas, com visual premium em preto e dourado e navegação simples pelo celular.</p>
-<div class="prize">R$ 10.000</div>
-<div class="notice">Prêmio ilustrativo para demonstração — não há venda ativa.</div>
-<div class="stats"><div class="stat"><b>01</b><small>Sorteio demonstrativo</small></div><div class="stat"><b>0000</b><small>Cotas vendidas</small></div><div class="stat"><b>R$ 0,00</b><small>Valor por cota (demo)</small></div></div>
-</section>
-<section class="section">
-<h2>Escolha seus números</h2><div class="sub">Selecione números para testar a interface. Esta demonstração não reserva cotas nem recebe pagamentos.</div>
-<div class="controls"><input id="search" inputmode="numeric" placeholder="Buscar número (ex.: 0027)" maxlength="4"><button class="secondary" id="clear">Limpar</button></div>
-<div class="grid" id="grid"></div>
-<div class="summary"><div class="total">Selecionados<strong id="count">0 números</strong></div><button class="gold" id="continue">Continuar</button></div>
-<div class="modal" id="msg" role="status"></div>
-</section>
-<section class="section"><h2>Como funciona</h2><p class="sub">A versão de produção precisará de backend seguro, banco de dados, autenticação administrativa, integração Pix homologada e validação jurídica antes de qualquer venda real.</p></section>
+  <section class="hero">
+    <div class="kicker">SUA CHANCE • SUA ESCOLHA</div>
+    <h1>SEU PRÓXIMO<br><span>GRANDE MOMENTO.</span></h1>
+    <p class="muted">CWB Rifas Premium: experiência moderna, seleção de números e acompanhamento da campanha.</p>
+    <div class="prize" id="prize">R$ 10.000,00</div>
+    <p id="campaignDescription" class="muted">Campanha em configuração. Consulte as informações oficiais antes de participar.</p>
+    <div class="stats">
+      <div class="stat"><b id="totalStat">40.000</b><small>Números disponíveis no sistema</small></div>
+      <div class="stat"><b id="soldStat">0</b><small>Pagamentos confirmados no banco</small></div>
+      <div class="stat"><b id="priceStat">R$ 0,59</b><small>Preço configurado por número</small></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Escolha seus números</h2>
+    <p class="muted">40.000 números, de 00000 a 39999. A disponibilidade real só poderá ser confirmada após a configuração do banco de dados.</p>
+
+    <div class="controls">
+      <input id="search" inputmode="numeric" maxlength="5" placeholder="Buscar número, ex.: 01234" aria-label="Buscar número">
+      <button class="secondary" id="searchBtn" type="button">Buscar</button>
+      <button class="secondary" id="clearBtn" type="button">Limpar seleção</button>
+    </div>
+
+    <div class="muted" id="rangeLabel">Carregando números...</div>
+    <div class="grid" id="numberGrid" style="margin-top:12px"></div>
+
+    <div class="pagination">
+      <button class="secondary" id="previousBtn" type="button">Anterior</button>
+      <span class="muted" id="pageLabel">Página 1</span>
+      <button class="secondary" id="nextBtn" type="button">Próxima</button>
+    </div>
+
+    <div class="summary">
+      <div class="total">
+        <span class="muted">Números selecionados</span>
+        <strong id="selectedCount">0</strong>
+        <span class="muted" id="selectedPrice">Total: R$ 0,00</span>
+      </div>
+      <button class="primary" id="continueBtn" type="button">Continuar</button>
+    </div>
+    <div class="notice" id="message" role="status"></div>
+  </section>
+
+  <section class="section">
+    <h2>Informações da campanha</h2>
+    <p class="muted" id="connectionStatus">Verificando configuração do sistema...</p>
+    <p class="muted">A seleção de números nesta versão não constitui reserva nem comprova pagamento.</p>
+  </section>
+
+  <section class="section">
+    <h2>Área administrativa</h2>
+    <p class="muted">Área inicial para configuração. O acesso administrativo seguro precisa ser ativado no Supabase antes de disponibilizar funções de gestão.</p>
+    <button class="secondary" id="adminToggle" type="button">Abrir área administrativa</button>
+    <div id="adminArea" hidden>
+      <div class="admin-form" style="margin-top:14px">
+        <label for="adminTitle" class="muted">Nome da campanha</label>
+        <input id="adminTitle" maxlength="100" placeholder="Nome da campanha">
+        <label for="adminPrize" class="muted">Prêmio (R$)</label>
+        <input id="adminPrize" type="number" min="0" step="0.01" value="10000">
+        <label for="adminPrice" class="muted">Preço por número (R$)</label>
+        <input id="adminPrice" type="number" min="0.01" step="0.01" value="0.59">
+        <label for="adminDescription" class="muted">Descrição</label>
+        <input id="adminDescription" maxlength="500" placeholder="Descrição da campanha">
+        <p class="muted">Estes campos alteram apenas a prévia local. Não salvam no banco nem protegem o acesso administrativo.</p>
+        <button class="primary" id="previewBtn" type="button">Atualizar prévia</button>
+      </div>
+    </div>
+  </section>
 </main>
-<footer>© CWB Rifas Premium · Protótipo visual<br>Não faça pagamentos por esta página. Nenhuma cota é reservada.</footer>
-<script>
-const grid=document.querySelector('#grid'), search=document.querySelector('#search'), count=document.querySelector('#count'), msg=document.querySelector('#msg');
-const selected=new Set(); const all=Array.from({length:100},(_,i)=>String(i).padStart(4,'0'));
-function render(){grid.innerHTML='';const q=search.value.trim();all.filter(n=>!q||n.includes(q)).forEach(n=>{const b=document.createElement('button');b.className='num'+(selected.has(n)?' selected':'');b.textContent=n;b.onclick=()=>{selected.has(n)?selected.delete(n):selected.add(n);render();};grid.appendChild(b)});count.textContent=selected.size+' '+(selected.size===1?'número':'números')}
-search.addEventListener('input',render);document.querySelector('#clear').onclick=()=>{selected.clear();search.value='';msg.style.display='none';render()};
-document.querySelector('#continue').onclick=()=>{msg.style.display='block';msg.textContent=selected.size?'Você selecionou '+selected.size+' número(s) para visualizar a interface. Nenhum pedido foi criado e nenhum pagamento pode ser feito nesta demonstração.':'Selecione pelo menos um número para testar a interface.'};
-render();  
+
+<footer>
+  © CWB Rifas Premium<br>
+  Pagamentos Pix ainda não integrados. Nenhum pedido ou reserva é criado por esta página.
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
+
+<script>
+(function(){
+  'use strict';
+
+  const TOTAL_NUMBERS = 40000;
+  const PAGE_SIZE = 100;
+  const CAMPAIGN_ID = '11111111-1111-4111-8111-111111111111';
+
+  const $ = id => document.getElementById(id);
+  const selected = new Set();
+
+  let page = 0;
+  let searchMode = false;
+  let campaign = {
+    title: 'CWB Rifas Premium',
+    prize_value: 10000,
+    ticket_price: 0.59,
+    total_numbers: TOTAL_NUMBERS,
+    description: 'Campanha em configuração.',
+    status: 'draft'
+  };
+
+  let supabaseClient = null;
+  let databaseReady = false;
+  let unavailableNumbers = new Set();
+
+  function money(value){
+    return Number(value || 0).toLocaleString('pt-BR',{
+      style:'currency',
+      currency:'BRL'
+    });
+  }
+
+  function showMessage(text){
+    $('message').textContent = text;
+    $('message').style.display = 'block';
+  }
+
+  function hideMessage(){
+    $('message').style.display = 'none';
+  }
+
+  function updateCampaignDisplay(){
+    $('prize').textContent = money(campaign.prize_value);
+    $('priceStat').textContent = money(campaign.ticket_price);
+    $('totalStat').textContent = Number(campaign.total_numbers).toLocaleString('pt-BR');
+    $('campaignDescription').textContent =
+      campaign.description || 'Consulte as regras oficiais da campanha.';
+    $('adminTitle').value = campaign.title || '';
+    $('adminPrize').value = campaign.prize_value || 0;
+    $('adminPrice').value = campaign.ticket_price || 0.59;
+    $('adminDescription').value = campaign.description || '';
+    updateSelection();
+  }
+
+  function updateSelection(){
+    $('selectedCount').textContent =
+      selected.size.toLocaleString('pt-BR');
+    $('selectedPrice').textContent =
+      'Total: ' + money(selected.size * Number(campaign.ticket_price || 0));
+  }
+
+  function numberLabel(n){
+    return String(n).padStart(5,'0');
+  }
+
+  function renderNumbers(){
+    const grid = $('numberGrid');
+    grid.replaceChildren();
+
+    let list = [];
+
+    if(searchMode){
+      const query = $('search').value.trim();
+
+      if(!/^\d{1,5}$/.test(query)){
+        $('rangeLabel').textContent = 'Digite de 1 a 5 números para buscar.';
+        $('pageLabel').textContent = 'Busca';
+        $('previousBtn').disabled = true;
+        $('nextBtn').disabled = true;
+        return;
+      }
+
+      const n = Number(query);
+
+      if(n < 0 || n >= TOTAL_NUMBERS){
+        $('rangeLabel').textContent = 'Número fora do intervalo 00000–39999.';
+        $('pageLabel').textContent = 'Busca';
+        $('previousBtn').disabled = true;
+        $('nextBtn').disabled = true;
+        return;
+      }
+
+      list = [n];
+      $('rangeLabel').textContent = 'Resultado da busca';
+      $('pageLabel').textContent = 'Busca';
+      $('previousBtn').disabled = true;
+      $('nextBtn').disabled = true;
+    } else {
+      const start = page * PAGE_SIZE;
+      const end = Math.min(start + PAGE_SIZE,TOTAL_NUMBERS);
+
+      for(let n = start; n < end; n++) list.push(n);
+
+      $('rangeLabel').textContent =
+        'Números ' + numberLabel(start) + ' até ' + numberLabel(end-1);
+      $('pageLabel').textContent =
+        'Página ' + (page+1) + ' de ' + Math.ceil(TOTAL_NUMBERS/PAGE_SIZE);
+      $('previousBtn').disabled = page === 0;
+      $('nextBtn').disabled = end >= TOTAL_NUMBERS;
+    }
+
+    for(const n of list){
+      const label = numberLabel(n);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'num';
+      btn.textContent = label;
+
+      const unavailable = unavailableNumbers.has(n);
+
+      if(selected.has(n)) btn.classList.add('selected');
+
+      if(unavailable){
+        btn.classList.add('unavailable');
+        btn.disabled = true;
+        btn.title = 'Indisponível segundo os dados carregados';
+      } else {
+        btn.setAttribute('aria-pressed',String(selected.has(n)));
+
+        btn.addEventListener('click',function(){
+          if(selected.has(n)){
+            selected.delete(n);
+          } else {
+            if(selected.size >= 100){
+              showMessage('Limite de 100 números por seleção nesta interface.');
+              return;
+            }
+            selected.add(n);
+          }
+
+          hideMessage();
+          updateSelection();
+          renderNumbers();
+        });
+      }
+
+      grid.appendChild(btn);
+    }
+  }
+
+  $('searchBtn').addEventListener('click',function(){
+    searchMode = true;
+    renderNumbers();
+  });
+
+  $('search').addEventListener('keydown',function(event){
+    if(event.key === 'Enter'){
+      searchMode = true;
+      renderNumbers();
+    }
+  });
+
+  $('search').addEventListener('input',function(){
+    if(!$('search').value.trim()){
+      searchMode = false;
+      page = 0;
+      renderNumbers();
+    }
+  });
+
+  $('previousBtn').addEventListener('click',function(){
+    if(page > 0){
+      page--;
+      searchMode = false;
+      renderNumbers();
+    }
+  });
+
+  $('nextBtn').addEventListener('click',function(){
+    if((page+1)*PAGE_SIZE < TOTAL_NUMBERS){
+      page++;
+      searchMode = false;
+      renderNumbers();
+    }
+  });
+
+  $('clearBtn').addEventListener('click',function(){
+    selected.clear();
+    $('search').value = '';
+    searchMode = false;
+    page = 0;
+    hideMessage();
+    updateSelection();
+    renderNumbers();
+  });
+
+  $('continueBtn').addEventListener('click',function(){
+    if(selected.size === 0){
+      showMessage('Selecione pelo menos um número.');
+      return;
+    }
+
+    showMessage(
+      'Seleção demonstrativa: ' +
+      Array.from(selected).sort((a,b)=>a-b).map(numberLabel).join(', ') +
+      '. Total ilustrativo: ' +
+      money(selected.size * Number(campaign.ticket_price || 0)) +
+      '. Nenhuma reserva ou cobrança foi criada. O Pix ainda não está integrado.'
+    );
+  });
+
+  $('adminToggle').addEventListener('click',function(){
+    const area = $('adminArea');
+    area.hidden = !area.hidden;
+    $('adminToggle').textContent =
+      area.hidden ? 'Abrir área administrativa' : 'Fechar área administrativa';
+  });
+
+  $('previewBtn').addEventListener('click',function(){
+    const title = $('adminTitle').value.trim();
+    const prize = Number($('adminPrize').value);
+    const price = Number($('adminPrice').value);
+    const description = $('adminDescription').value.trim();
+
+    if(!title || !Number.isFinite(prize) || prize < 0 ||
+       !Number.isFinite(price) || price <= 0){
+      showMessage('Confira o nome da campanha, o prêmio e o preço por número.');
+      return;
+    }
+
+    campaign = {
+      ...campaign,
+      title:title,
+      prize_value:prize,
+      ticket_price:price,
+      description:description
+    };
+
+    updateCampaignDisplay();
+    showMessage('Prévia atualizada somente nesta página. Os dados não foram salvos no banco.');
+  });
+
+  async function loadCampaign(){
+    if(!window.supabase ||
+       !window.SUPABASE_URL ||
+       !window.SUPABASE_ANON_KEY){
+      $('connectionStatus').textContent =
+        'A interface está funcionando. Falta configurar ou verificar supabase-config.js.';
+      renderNumbers();
+      return;
+    }
+
+    try{
+      supabaseClient = window.supabase.createClient(
+        window.SUPABASE_URL,
+        window.SUPABASE_ANON_KEY
+      );
+
+      const {data,error} = await supabaseClient
+        .from('campaigns')
+        .select('id,title,prize_value,ticket_price,total_numbers,description,status')
+        .eq('id',CAMPAIGN_ID)
+        .maybeSingle();
+
+      if(error){
+        console.error('Erro Supabase:',error.message);
+        $('connectionStatus').textContent =
+          'Não foi possível ler a campanha. Verifique a tabela campaigns, as permissões e o ID configurado.';
+        return;
+      }
+
+      if(!data){
+        $('connectionStatus').textContent =
+          'Conexão configurada, mas a campanha não foi encontrada pelo ID atual. O protótipo continua disponível.';
+        return;
+      }
+
+      campaign = {...campaign,...data};
+      databaseReady = true;
+      updateCampaignDisplay();
+
+      $('connectionStatus').textContent =
+        'Campanha consultada no Supabase. A seleção continua demonstrativa até implementar reservas seguras.';
+
+      console.log('Campanha carregada:',data);
+    } catch(error){
+      console.error('Falha de conexão:',error);
+      $('connectionStatus').textContent =
+        'Falha na conexão. Verifique a internet e as configurações do Supabase.';
+    }
+  }
+
+  updateCampaignDisplay();
+  renderNumbers();
+  loadCampaign();
+})();
 </script>
-  const supabase = window.supabase.createClient(
-    window.SUPABASE_URL,
-    window.SUPABASE_ANON_KEY
-  );
-
-  const campanhaId = '11111111-1111-4111-8111-111111111111';
-
-  const { data, error } = await supabase
-    .from('campaigns')
-    .select('title, prize_value, ticket_price, total_numbers, status')
-    .eq('id', campanhaId)
-    .maybeSingle();
-
-  if (error) {
-    console.error('Erro ao carregar campanha:', error.message);
-    return;
-  }
-
-  if (!data) {
-    console.log('Campanha ainda não está disponível publicamente.');
-    return;
-  }
-
-  console.log('Campanha:', data);
-})();
-  </script>
-  <script>
-(async function () {
-  if (!window.supabase || !window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
-    console.error('Configuração do Supabase não encontrada.');
-    return;
-  }
-
-  const client = window.supabase.createClient(
-    window.SUPABASE_URL,
-    window.SUPABASE_ANON_KEY
-  );
-
-  const campaignId = '11111111-1111-4111-8111-111111111111';
-
-  const { data, error } = await client
-    .from('campaigns')
-    .select('id, title, prize_value, ticket_price, total_numbers, description, status')
-    .eq('id', campaignId)
-    .maybeSingle();
-
-  if (error) {
-    console.error('Erro ao consultar campanha:', error.message);
-    return;
-  }
-
-  console.log('Campanha encontrada:', data);
-})();
-  </script>
-</body></html>
+</body>
+</html>
