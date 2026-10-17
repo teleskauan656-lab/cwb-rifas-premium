@@ -54,6 +54,8 @@ const selected=new Set(); const all=Array.from({length:100},(_,i)=>String(i).pad
 function render(){grid.innerHTML='';const q=search.value.trim();all.filter(n=>!q||n.includes(q)).forEach(n=>{const b=document.createElement('button');b.className='num'+(selected.has(n)?' selected':'');b.textContent=n;b.onclick=()=>{selected.has(n)?selected.delete(n):selected.add(n);render();};grid.appendChild(b)});count.textContent=selected.size+' '+(selected.size===1?'número':'números')}
 search.addEventListener('input',render);document.querySelector('#clear').onclick=()=>{selected.clear();search.value='';msg.style.display='none';render()};
 document.querySelector('#continue').onclick=()=>{msg.style.display='block';msg.textContent=selected.size?'Você selecionou '+selected.size+' número(s) para visualizar a interface. Nenhum pedido foi criado e nenhum pagamento pode ser feito nesta demonstração.':'Selecione pelo menos um número para testar a interface.'};
-render();
+render();  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./supabase-config.js"></script>
 </script>
 </body></html>
