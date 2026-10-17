@@ -58,8 +58,6 @@ render();
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./supabase-config.js"></script>
 </script>
-  <script>
-(async function () {
   const supabase = window.supabase.createClient(
     window.SUPABASE_URL,
     window.SUPABASE_ANON_KEY
@@ -84,6 +82,34 @@ render();
   }
 
   console.log('Campanha:', data);
+})();
+  </script>
+  <script>
+(async function () {
+  if (!window.supabase || !window.SUPABASE_URL || !window.SUPABASE_ANON_KEY) {
+    console.error('Configuração do Supabase não encontrada.');
+    return;
+  }
+
+  const client = window.supabase.createClient(
+    window.SUPABASE_URL,
+    window.SUPABASE_ANON_KEY
+  );
+
+  const campaignId = '11111111-1111-4111-8111-111111111111';
+
+  const { data, error } = await client
+    .from('campaigns')
+    .select('id, title, prize_value, ticket_price, total_numbers, description, status')
+    .eq('id', campaignId)
+    .maybeSingle();
+
+  if (error) {
+    console.error('Erro ao consultar campanha:', error.message);
+    return;
+  }
+
+  console.log('Campanha encontrada:', data);
 })();
   </script>
 </body></html>
